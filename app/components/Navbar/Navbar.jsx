@@ -3,8 +3,9 @@ import { title } from 'process'
 import React from 'react'
 import { BiMoon } from 'react-icons/bi'
 import { FaGithub, FaTwitter } from 'react-icons/fa';
-import Theme from './Theme';
-import AuthLinks from './AuthLinks';
+import Theme from '../Theme';
+import AuthLinks from '../authlinks/AuthLinks';
+import styles from "./Navbar.module.css"
 
 const Navbar = () => {
 
@@ -49,8 +50,12 @@ const Navbar = () => {
       }
     ]
   return (
-    <div className='flex p-4  items-center'>
-      <div className='flex-1 flex gap-3 items-center cursor-pointer'>
+    <div className={styles.container}
+    // 'flex p-4  items-center'
+    >
+      <div className={styles.social_icons}
+      // 'flex-1 flex gap-3 items-center cursor-pointer'
+      >
         {SocialIcons.map((icons)=>(
           <div key={icons.id}>
             {icons.icon} 
@@ -58,11 +63,11 @@ const Navbar = () => {
         ))}
       </div>
 
-        <div className='flex-1 text-center font-bold text-3xl'><Link href='/'>Blogs</Link></div>
-        <div className='flex-1 flex gap-3 items-center justify-evenly font-semibold'>
+        <div className={styles.logo}><Link href='/'>Blogs</Link></div>
+        <div className='flex-1 flex gap-3  justify-evenly font-semibold'>
         <Theme/>
           {links.map((link)=>(
-            <Link href={link.href} key={link.id} >{link.title}</Link>
+            <Link href={link.href} key={link.id} className={styles.navlink} >{link.title}</Link>
           ))}
           <AuthLinks/>
         </div>

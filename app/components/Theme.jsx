@@ -9,7 +9,8 @@ const Theme = () => {
   console.log(theme);
   
   return (
-    <div className='relative flex rounded-xl w-12 h-6 items-center cursor-pointer bg-black justify-between' onClick={toggle}
+    <div 
+    className='relative flex rounded-xl w-12 h-6 items-center cursor-pointer px-1 bg-black justify-between' onClick={toggle}
     style={
       theme === "dark" ?
       { backgroundColor:"white"}
@@ -23,7 +24,7 @@ const Theme = () => {
           :{right:1, backgroundColor:"white"}
         }
         ></div>
-        <BiSun color='yellow'/>
+        <BiSun color='orange'/>
     </div>
   )
 }

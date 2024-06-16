@@ -1,18 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import Featured from "./components/Featured";
-import Category from "./components/Category";
-import CardList from "./components/CardList";
-import Menu from "./components/Menu";
+import styles from './homepage.module.css'
+import Featured from "./components/featured/Featured";
+import Category from "./components/category/Category";
+import CardList from "./components/cardList/CardList";
+import Menu from "./components/menu/Menu";
 
 export default function Home() {
   return (
-   <div className="px-4 py-3">
+   <div>
 
       <Featured/>
       <Category/>
 
-      <div className="flex justify-between">
+      <div className={styles.container}>
         <CardList/>
         <Menu/>
       </div>
