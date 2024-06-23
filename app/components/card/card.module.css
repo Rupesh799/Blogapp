@@ -1,0 +1,45 @@
+.container{
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.imgContainer{
+    flex:1;
+    height: 300px;
+    position:relative;
+   
+}
+.image{
+    object-fit: cover;
+    border-radius: 10px;
+}
+.textContainer{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.date{
+    color: gray;
+}
+.category{
+    font-weight: bold;
+    color: blueviolet;
+}
+.postTitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+.text{
+    font-weight: 300;
+    color: var(--softText);
+}
+.read{
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid blueViolet;
+    padding: 10px 0;
+    width: max-content;
+}

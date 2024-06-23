@@ -1,8 +1,8 @@
 import React from 'react'
-
+import styles from './Menu.module.css'
 const Menu = () => {
   return (
-    <div>Menu</div>
+    <div className={styles.container}>Menu</div>
   )
 }
 

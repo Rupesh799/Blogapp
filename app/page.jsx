@@ -10,13 +10,15 @@ export default function Home() {
   return (
    <div>
 
+      <div className={styles.container}>
       <Featured/>
       <Category/>
+      </div>
 
-      <div className={styles.container}>
+    <div className={styles.content}>
         <CardList/>
         <Menu/>
-      </div>
+        </div>
    </div>
   );
 }

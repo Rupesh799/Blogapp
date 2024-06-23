@@ -1,0 +1,70 @@
+.container{
+
+}
+
+.title{
+    margin:50px 0;
+    font-weight: bold;
+}
+.categories{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap:30px;
+    align-items: center;
+    border-radius: 5px;
+}
+.image{
+    border-radius: 50%;
+   width: 25px;
+   height: 25px;
+}
+.category{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    text-transform: capitalize;
+    height: 50px;
+    width: 15%;
+    border-radius: 10px;
+    font-weight: bold;
+
+}
+.category.style{
+    background-color: rgb(103, 156, 138);
+}
+.category.tech{
+    background-color: rgb(85, 197, 231);
+}
+.category.music{
+    background-color: rgb(211, 155, 227);
+}
+.category.culture{
+    background-color: rgb(148, 97, 97);
+}
+.category.sports{
+    background-color: rgb(149, 142, 133);
+}
+
+@media screen and (max-width:1280px){
+    .category{
+        width: 20%;
+    }
+}
+
+@media screen and (max-width:1024px){
+    .category{
+        width: 30%;
+    }
+}
+@media screen and (max-width:768px){
+    .category{
+        width: 45%;
+    }
+}
+@media screen and (max-width:640px){
+    .category{
+        width: 100%;
+    }
+}

@@ -1,3 +1,6 @@
-.container{
-    
+
+
+.content{
+    display: flex;
+    gap: 45px;
 }
