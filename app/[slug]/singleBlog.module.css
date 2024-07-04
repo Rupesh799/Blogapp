@@ -1,1 +1,41 @@
+/* .blogHeader{
+    position: relative;
+}
+.img{
+    object-fit: cover;
+} */
+ .imgContainer{
+    position: relative;
+    height: 300px;
+ }
+ .img{
+    object-fit: cover;
+    border-radius: 10px;
+ }
 
+ .title{
+    font-size: 25px;
+    font-weight: bold;
+ }
+ .infoContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+ }
+ .userImage{
+    position: relative;
+    height: 30px;
+    width: 30px;
+ }
+ .uimg{
+    
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid blueviolet;
+ }
+ .userInfo{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+ }
