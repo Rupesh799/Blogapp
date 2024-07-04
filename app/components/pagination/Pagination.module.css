@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.prev{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: rgb(74, 74, 212);
+    border-radius: 5px;
+    color:white;
+}
+
+.next{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: rgb(24, 119, 157);
+    border-radius: 5px;
+    color:white;
+}

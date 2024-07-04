@@ -97,3 +97,9 @@
 .categories.sports{
     background-color: rgb(149, 142, 133);
 }
+
+@media screen and (max-width:1024px){
+    .container{
+        display: none;
+    }
+}
