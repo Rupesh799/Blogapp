@@ -39,3 +39,19 @@
     gap: 20px;
     align-items: center;
  }
+ .name{
+   font-weight:bold;
+ }
+ .date{
+   color: gray;
+ }
+
+ .content{
+   display: flex;
+   gap:50px;
+   
+ }
+ .post{
+   flex:5;
+   margin-top: 93px;
+ }

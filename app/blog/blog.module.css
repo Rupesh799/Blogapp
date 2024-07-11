@@ -8,7 +8,7 @@
 }
 .title::before{
     content: '';
-    top: 1.7%;
+    top: 2.5%;
     position: absolute;
     left: 30%;
     width: 50px;
@@ -18,7 +18,7 @@
 
 .title::after{
     content: '';
-    top: 1.7%;
+    top: 2.5%;
     position: absolute;
     right: 30%;
     width: 50px;

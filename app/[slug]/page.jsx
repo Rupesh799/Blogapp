@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './singleBlog.module.css'
 import Image from 'next/image'
+import Menu from '../components/menu/Menu'
+import Comments from '../components/comments/Comments'
 const SinglePage = () => {
   return (
     <div className={styles.container}>
@@ -23,6 +25,18 @@ const SinglePage = () => {
                         </div>
                 </div>
             </div>
+        </div>
+        <div className={styles.content}>
+            <div className={styles.post}>
+                    <div className={styles.desc}>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo eum aliquam ducimus sed, praesentium distinctio doloremque mollitia culpa voluptatum nihil libero dolor eius nobis sit inventore architecto maiores itaque. Aut!
+                    </div>
+                    <div className={styles.comment}>
+                      <Comments/>
+                    </div>
+            </div>
+            <Menu/>
+            
         </div>
     </div>
   )
