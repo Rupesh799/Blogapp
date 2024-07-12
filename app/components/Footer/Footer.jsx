@@ -11,7 +11,7 @@ const Footer = () => {
             <h1 className={styles.title}>Blog</h1>
           </div>
             <p className={styles.desc}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias earum inventore optio nihil magnam. Obcaecati unde eligendi nostrum consequuntur quis, dolore distinctio nulla doloribus iusto vero perspiciatis. Blanditiis, modi harum!
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias earum 
             </p>
 
       </div>

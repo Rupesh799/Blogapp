@@ -4,7 +4,7 @@ import React, {useState} from 'react'
 import styles from './AuthLinks.module.css'
 
 const AuthLinks = () => {
-    const status = "notauthenticated"
+    const status = "authenticated"
 
     const [open , setOpen] = useState(false)
   return (
@@ -33,10 +33,10 @@ const AuthLinks = () => {
                 {status=== "notauthenticated" ? (
                 <Link href="/login">Login</Link>
         ):(
-            <>
+          <>
             <Link href="/write">Write</Link>
             <span className={styles.links}>Logout</span>
-            </>
+            </> 
         )}
             </div>
           )}

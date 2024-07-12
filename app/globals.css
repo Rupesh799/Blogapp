@@ -68,3 +68,10 @@ a{
     padding-right: 60px;
   }
 } 
+
+.ql-container{
+  font-size: 28px!important;
+}
+.quill > .ql-container >.ql-editor.ql-blank::before{
+  color: rgb(117, 117, 117);
+}
