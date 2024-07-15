@@ -1,7 +1,8 @@
 .container{
     display: flex;
     align-items: center;
-    /* gap: 15px; */
+    gap: 15px;
+    cursor: pointer;
 }
 .burger{
     width: 20px;
