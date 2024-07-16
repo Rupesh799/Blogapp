@@ -4,9 +4,24 @@ import styles from './write.module.css'
 import Image from 'next/image'
 import ReactQuill from 'react-quill'
 import "react-quill/dist/quill.bubble.css"
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 const WriteBlog = () => {
+
+
+  const {status} = useSession()
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
+
+  if(status === "loading"){
+    return <div>Loading...</div>
+  }
+  if(status === "authenticated"){
+    router.refresh("/")
+  }
+
   return (
     <div className={styles.container}>
       <input type="text" placeholder='Title' className={styles.input}/>
