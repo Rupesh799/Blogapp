@@ -12,14 +12,14 @@ const Card = ({key,item}) => {
 
         <div className={styles.textContainer}>
           <div className={styles.cardHeader}>
-          <span className={styles.date}>{item.createdAt} - </span>
-          <span className={styles.category}>{item.category}</span>
+          <span className={styles.date}>{item.createdAt.substring(0,10)} - </span>
+          <span className={styles.category}>{item.catSlug}</span>
           </div>
-            <h1 className={styles.postTitle}>{item.title}</h1>
-            <p className={styles.text}>{item.desc}</p>
+            <Link href={`/posts/${item.slug}`} className={styles.postTitle}>{item.title}</Link>
+            <p className={styles.text}>{item.desc.substring(0,60)}...</p>
 
             <div className={styles.read}>
-            <Link href="/" className={styles.link}>Read More
+            <Link href={`/posts/${item.slug}`} className={styles.link}>Read More
                         
                 </Link>
                 <RiArrowRightFill/>

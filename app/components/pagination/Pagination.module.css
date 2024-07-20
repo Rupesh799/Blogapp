@@ -13,13 +13,22 @@
     border-radius: 5px;
     color:white;
 }
+.prev:disabled{
+    background-color: rgba(35, 35, 99, 0.5);
+    cursor: not-allowed;
+}
 
 .next{
     display: flex;
     gap: 10px;
     align-items: center;
     padding: 8px 15px;
-    background-color: rgb(24, 119, 157);
+    background-color: rgb(23, 92, 122);
     border-radius: 5px;
     color:white;
+}
+
+.next:disabled{
+    background-color: rgba(5, 36, 51, 0.483);
+    cursor: not-allowed;
 }

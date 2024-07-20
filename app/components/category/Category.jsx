@@ -20,10 +20,10 @@ const Category = async () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {categoryData?.map((item) => (
+        {categoryData && categoryData?.map((item) => (
           <Link
           key={item._id}
-            href="/blog?cat=style"
+            href={`/blog?cat=${categoryData.slug}`}
             className={`${styles.category} ${styles[item.slug]}`}
           >
             <Image

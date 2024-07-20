@@ -5,6 +5,7 @@
     font-size: 35px;
     text-align: center;
     font-weight: bold;
+    text-transform: capitalize;
 }
 .title::before{
     content: '';
