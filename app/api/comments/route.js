@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from '@/utils/connect'
+import { auth } from "@/utils/auth";
 
 
 //? Get all comments
@@ -25,6 +26,24 @@ export const GET = async(req )=>{
 }
 
 //? Creating the comment
-export const POST= async()=>{
+export const POST= async(req)=>{
+  const session = await auth();
 
+  if(!session){
+    return new NextResponse(JSON.stringify({message:"SLogged in to comment"}, {status:401}))
+  }
+  try {
+    const body = await req.json()
+    const comment = await prisma.comment.create({
+      data:{...body, userEmail: session.user.email}
+    })
+
+    return new NextResponse(JSON.stringify(comment, {status:200}))
+  } catch (error) {
+    console.log(error);
+    
+    return new NextResponse(
+      JSON.stringify({message:"something went wrong"} , {status:500})
+    )
+  }
 }

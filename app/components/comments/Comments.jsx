@@ -1,10 +1,11 @@
 "use client"
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './comments.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import useSWR from 'swr'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const fetcher=async(url)=>{
     const res = await fetch(url)
@@ -22,18 +23,33 @@ const fetcher=async(url)=>{
 
 const Comments = ({postSlug}) => {
     const {status} = useSession()
+    const router = useRouter()
     console.log(status);
-    const {data, isLoading} = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    //? mutate is used for revalidating the data
+    const {data,mutate, isLoading} = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`,
         fetcher
-    )
+    );
+
+    const [desc, setDesc] = useState("");
+
+    const handleSubmit=async()=>{
+            await fetch("/api/comments",{
+                method:"POST",
+                body:JSON.stringify({desc,postSlug})
+            });
+
+            mutate();
+            
+            
+    }
   return (
     <div className={styles.container}>
         <h1 className={styles.title}>Comments</h1>
 
         {status === "authenticated"? (
             <div className={styles.comments}>
-            <textarea placeholder='Write comments' className={styles.input}/>
-            <button className={styles.btn}>Send</button>
+            <textarea placeholder='Write comments' className={styles.input} onChange={(e)=>setDesc(e.target.value)}/>
+            <button className={styles.btn} onClick={handleSubmit}>Send</button>
             </div>
         ):
         (
