@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import prisma from '@/utils/connect'
 
+
+//? Get all comments
 export const GET = async(req )=>{
 
     const {searchParams} = new URL(req.url)
@@ -20,4 +22,9 @@ export const GET = async(req )=>{
           JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
         );
       }
+}
+
+//? Creating the comment
+export const POST= async()=>{
+
 }

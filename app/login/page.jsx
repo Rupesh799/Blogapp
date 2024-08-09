@@ -22,7 +22,7 @@ const LoginPage = () => {
                 <FaGoogle size={30}/>
               </span>
               SignIn with Google</div>
-            <div className={styles.social}>
+            <div className={styles.social} onClick={()=>signIn("github")}>
             <span className={styles.icon}>
                 <FaGithub size={30}/>
               </span>
