@@ -37,8 +37,9 @@ const Comments = ({postSlug}) => {
                 method:"POST",
                 body:JSON.stringify({desc,postSlug})
             });
-
             mutate();
+            router.refresh()
+
             
             
     }
