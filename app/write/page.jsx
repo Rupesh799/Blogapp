@@ -68,8 +68,8 @@ uploadTask.on('state_changed',
   if(status === "loading"){
     return <div>Loading...</div>
   }
-  if(status === "authenticated"){
-    // router.push("/")
+  if (status === "unauthenticated") {
+    router.push("/");
   }
 
   const slugify = (str) =>
@@ -141,4 +141,4 @@ uploadTask.on('state_changed',
   )
 }
 
-export default WriteBlog
+export default WriteBlog;
