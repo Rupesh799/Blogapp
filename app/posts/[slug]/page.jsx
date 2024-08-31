@@ -3,7 +3,6 @@ import styles from './singleBlog.module.css'
 import Image from 'next/image'
 import Menu from '../../components/menu/Menu'
 import Comments from '../../components/comments/Comments'
-import Link from 'next/link'
 
 const getData = async(slug)=>{
     const res = await fetch(`http://localhost:3000/api/posts/${slug}`,{
@@ -59,4 +58,4 @@ const SinglePage = async({params}) => {
   )
 }
 
-export default SinglePage
+export default SinglePage;
