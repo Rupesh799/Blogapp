@@ -13,7 +13,6 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import SafeImage from "../components/ui/SafeImage";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -30,55 +29,57 @@ const WriteBlog = () => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-  const ensureFirebaseAuth = async () => {
-    const auth = getAuth(app);
-    if (!auth.currentUser) {
-      const provider = new GoogleAuthProvider();
-      try {
-        await signInWithPopup(auth, provider);
-      } catch (error) {
-        alert("Firebase authentication failed. Please try again.");
-        throw error;
-      }
-    }
-  };
-
+  // Simplified upload function - removed Firebase Auth requirement
   useEffect(() => {
     const upload = async () => {
       if (!file) return;
+
       setIsUploading(true);
+      setUploadProgress(0);
+
       try {
-        await ensureFirebaseAuth();
-        const auth = getAuth(app);
-        console.log("Firebase Auth user at upload:", auth.currentUser);
         const storage = getStorage(app);
-        const name = new Date().getTime() + file.name;
+        const name = new Date().getTime() + "_" + file.name;
         const storageRef = ref(storage, `blog-images/${name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
+
         uploadTask.on(
           "state_changed",
           (snapshot) => {
             const progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(progress);
-            console.log("Upload is " + progress + "% done");
+            setUploadProgress(Math.round(progress));
+            console.log("Upload is " + Math.round(progress) + "% done");
           },
           (error) => {
             console.error("Upload failed:", error);
+            alert("Upload failed: " + error.message);
             setIsUploading(false);
+            setUploadProgress(0);
           },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          async () => {
+            try {
+              const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+              console.log("File available at", downloadURL);
               setMedia(downloadURL);
               setIsUploading(false);
               setUploadProgress(0);
-            });
+            } catch (error) {
+              console.error("Error getting download URL:", error);
+              alert("Error getting download URL: " + error.message);
+              setIsUploading(false);
+              setUploadProgress(0);
+            }
           }
         );
       } catch (error) {
+        console.error("Upload error:", error);
+        alert("Upload error: " + error.message);
         setIsUploading(false);
+        setUploadProgress(0);
       }
     };
+
     if (file) {
       upload();
     }
@@ -131,15 +132,16 @@ const WriteBlog = () => {
         }),
       });
 
+      const data = await res.json();
+
       if (res.status === 200) {
-        const data = await res.json();
         router.push(`/posts/${data.slug}`);
       } else {
-        throw new Error("Failed to publish post");
+        throw new Error(data.message || "Failed to publish post");
       }
     } catch (error) {
       console.error("Error publishing post:", error);
-      alert("Failed to publish post. Please try again.");
+      alert("Failed to publish post: " + error.message);
     } finally {
       setIsPublishing(false);
     }
@@ -153,11 +155,14 @@ const WriteBlog = () => {
         alert("Please select an image file");
         return;
       }
+
       // Validate file size (5MB limit)
       if (selectedFile.size > 5 * 1024 * 1024) {
         alert("File size should be less than 5MB");
         return;
       }
+
+      console.log("File selected:", selectedFile.name, selectedFile.type);
       setFile(selectedFile);
     }
   };
@@ -226,7 +231,14 @@ const WriteBlog = () => {
             accept="image/*"
           />
           <button className={styles.addButton} title="Add image">
-            <label htmlFor="image">
+            <label
+              htmlFor="image"
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <SafeImage
                 src="/images/gallery.png"
                 alt="gallery"
@@ -259,7 +271,7 @@ const WriteBlog = () => {
 
       {isUploading && (
         <div className={styles.mediaPreview}>
-          <div>Uploading image... {Math.round(uploadProgress)}%</div>
+          <div>Uploading image... {uploadProgress}%</div>
           <div
             style={{
               width: "100%",
@@ -284,7 +296,17 @@ const WriteBlog = () => {
 
       {media && !isUploading && (
         <div className={styles.mediaPreview}>
-          <img src={media} alt="Uploaded" style={{ maxHeight: "200px" }} />
+          <img
+            src={media}
+            alt="Uploaded"
+            style={{ maxHeight: "200px", maxWidth: "100%" }}
+          />
+          <button
+            onClick={() => setMedia("")}
+            style={{ marginTop: "0.5rem", padding: "0.25rem 0.5rem" }}
+          >
+            Remove Image
+          </button>
         </div>
       )}
 

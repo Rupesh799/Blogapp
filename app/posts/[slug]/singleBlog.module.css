@@ -6,7 +6,7 @@
 } */
  .imgContainer{
     position: relative;
-    height: 300px;
+    height: 500px;
  }
  .img{
     object-fit: cover;

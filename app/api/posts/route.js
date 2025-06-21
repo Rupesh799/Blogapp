@@ -38,25 +38,26 @@ export const POST = async (req) => {
 
   if (!session) {
     return new NextResponse(
-      JSON.stringify(
-        {
-          message: "You must be logged in to create a post",
-        },
-        { status: 401 }
-      )
+      JSON.stringify({
+        message: "You must be logged in to create a post",
+      }),
+      { status: 401 }
     );
   }
+
   try {
     const body = await req.json();
     const post = await prisma.post.create({
-      data:{...body, userId:session.user.id}
-    })
-    return new NextResponse(JSON.stringify(post, {status:200}))
+      data: { ...body, userId: session.user.id },
+    });
+
+    // Fixed: Return response with correct syntax
+    return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {
     console.log(error);
     return new NextResponse(
-      JSON.stringify({message:"something went wrong"} , {status:500})
-    )
-    
+      JSON.stringify({ message: "Something went wrong" }),
+      { status: 500 }
+    );
   }
 };
