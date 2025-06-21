@@ -27,17 +27,19 @@
    
 }
 .imgContainer{
-    flex: 1;
     position: relative;
     /* aspect-ratio: 1/1; */
-    height: 40px;
+    display: flex;
+    align-items: center;
+      height: 40px;
     width: 40px;
+    overflow: hidden;
+    border-radius: 50%;
 }
 .image{
-    border-radius: 50%;
     border: 3px solid rgb(143, 163, 40);
     object-fit: cover;
-    
+     
 }
 .textContainer{
     flex: 4;

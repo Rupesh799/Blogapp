@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import styles from "./singleBlog.module.css";
-import Image from "next/image";
 import Menu from "../../components/menu/Menu";
 import Comments from "../../components/comments/Comments";
+import SafeImage from "../../components/ui/SafeImage";
+import { SkeletonPost } from "../../components/ui/Skeleton";
 
 const getData = async (slug) => {
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
@@ -15,54 +16,76 @@ const getData = async (slug) => {
   return res.json();
 };
 
+const SinglePageSkeleton = () => (
+  <div className={styles.container}>
+    <SkeletonPost />
+  </div>
+);
+
 const SinglePage = async ({ params }) => {
   const { slug } = params;
   const singlePost = await getData(slug);
-  // console.log(singlePost);
-  return (
-    <div className={styles.container}>
-      <div className={styles.blogHeader}>
-        <div className={styles.imgContainer}>
-          <Image src={singlePost?.img} alt="" fill className={styles.img} />
-        </div>
-        <div className={styles.infoContainer}>
-          <div>
-            <h1 className={styles?.title}>{singlePost.title}</h1>
-          </div>
-          <div className={styles.userInfo}>
-            <div className={styles?.userImage}>
-              <Image
-                src={singlePost?.user?.image}
-                alt=""
-                fill
-                className={styles.uimg}
-              />
-            </div>
-            <div className={styles.userDetails}>
-              <h3 className={styles?.name}>{singlePost?.user?.name}</h3>
-              <p className={styles?.date}>
-                {singlePost?.user?.createdAt?.substring(0, 10)}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.content}>
-        <div className={styles.post}>
-          {singlePost?.desc && (
-            <div
-              className={styles.desc}
-              dangerouslySetInnerHTML={{ __html: singlePost.desc }}
-            />
-          )}
+  
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
-          <div className={styles.comment}>
-            <Comments postSlug={slug} />
+  return (
+    <Suspense fallback={<SinglePageSkeleton />}>
+      <div className={styles.container}>
+        <div className={styles.blogHeader}>
+          <div className={styles.imgContainer}>
+            <SafeImage 
+              src={singlePost?.img} 
+              alt={singlePost?.title} 
+              fill 
+              className={styles.img}
+              fallbackSrc="/images/logo.png"
+            />
+          </div>
+          <div className={styles.infoContainer}>
+            <div>
+              <h1 className={styles?.title}>{singlePost.title}</h1>
+            </div>
+            <div className={styles.userInfo}>
+              <div className={styles?.userImage}>
+                <SafeImage
+                  src={singlePost?.user?.image}
+                  alt={singlePost?.user?.name || 'User'}
+                  fill
+                  className={styles.uimg}
+                  fallbackSrc="/images/logo.png"
+                />
+              </div>
+              <div className={styles.userDetails}>
+                <h3 className={styles?.name}>{singlePost?.user?.name}</h3>
+                <p className={styles?.date}>
+                  {formatDate(singlePost?.user?.createdAt)}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <Menu />
+        <div className={styles.content}>
+          <div className={styles.post}>
+            {singlePost?.desc && (
+              <div
+                className={styles.desc}
+                dangerouslySetInnerHTML={{ __html: singlePost.desc }}
+              />
+            )}
+          </div>
+          <Menu />
+        </div>
+        <Comments postSlug={slug} />
       </div>
-    </div>
+    </Suspense>
   );
 };
 

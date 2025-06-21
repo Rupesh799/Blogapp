@@ -1,13 +1,14 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import styles from './write.module.css'
-import Image from 'next/image'
 import dynamic from 'next/dynamic';
 import "react-quill/dist/quill.bubble.css"
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {app} from "@/utils/firebase"
+import SafeImage from '../components/ui/SafeImage'
+
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 const WriteBlog = () => {
 
@@ -111,7 +112,7 @@ uploadTask.on('state_changed',
       </select>
       <div className={styles.editor}>
         <button className={styles.button} onClick={()=>setOpen(!open)}>
-          <Image src={"/images/plus.png"} alt='plus' height={40} width={40}/>
+          <SafeImage src={"/images/plus.png"} alt='plus' height={40} width={40} fallbackSrc="/images/logo.png"/>
         </button>
         {open && (
           <div className={styles.add}>
@@ -121,14 +122,14 @@ uploadTask.on('state_changed',
             <button className={styles.addButton}>
               <label htmlFor="image">
 
-              <Image src={"/images/gallery.png"} alt='' height={28} width={28}/>
+              <SafeImage src={"/images/gallery.png"} alt='gallery' height={28} width={28} fallbackSrc="/images/logo.png"/>
               </label>
             </button>
             <button className={styles.addButton}>
-              <Image src={"/images/coding.png"} alt='' height={28} width={28}/>
+              <SafeImage src={"/images/coding.png"} alt='coding' height={28} width={28} fallbackSrc="/images/logo.png"/>
             </button>
             <button className={styles.addButton}>
-              <Image src={"/images/video.png"} alt='' height={28} width={28}/>
+              <SafeImage src={"/images/video.png"} alt='video' height={28} width={28} fallbackSrc="/images/logo.png"/>
             </button>
           </div>
         )}

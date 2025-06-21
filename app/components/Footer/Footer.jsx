@@ -1,13 +1,14 @@
 import React from 'react'
 import styles from './Footer.module.css'
-import Image from 'next/image'
+import SafeImage from '../ui/SafeImage'
 import Link from 'next/link'
+
 const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
           <div className={styles.logo}>
-            <Image src="/images/logo.png" width={50} height={50} alt="logo" className={styles.imgLogo}/>
+            <SafeImage src="/images/logo.png" width={50} height={50} alt="logo" className={styles.imgLogo} fallbackSrc="/images/logo.png"/>
             <h1 className={styles.title}>Blog</h1>
           </div>
             <p className={styles.desc}>

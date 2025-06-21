@@ -20,13 +20,13 @@ const Navbar = () => {
       {
         id:2,
         title:"About",
-        href:"/"
+        href:"/about"
 
     },
     {
       id:3,
       title:"Contact",
-      href:"/"
+      href:"/contact"
 
   }
     ];

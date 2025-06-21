@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Featured.module.css";
-import Image from "next/image";
+import SafeImage from "../ui/SafeImage";
 
 const Featured = () => {
   return (
@@ -11,11 +11,12 @@ const Featured = () => {
 
       <div className={styles.post}>
         <div className={styles.imgContainer}>
-          <Image
+          <SafeImage
             src="/images/p1.jpg"
             alt="Featured Post"
             fill
             className={styles.image}
+            fallbackSrc="/images/logo.png"
           />
         </div>
         <div className={styles.textContainer}>

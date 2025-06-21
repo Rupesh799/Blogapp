@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import styles from './CardList.module.css'
 import Pagination from '../pagination/Pagination'
 import Card from '../card/Card'
+import { SkeletonCard } from '../ui/Skeleton'
 
 const getData = async(page,cat)=>{
   const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
@@ -16,6 +17,17 @@ const getData = async(page,cat)=>{
   return res.json()
 }
 
+const CardListSkeleton = () => (
+  <div className={styles.container}>
+    <h1 className={styles.title}>Recent Posts</h1>
+    <div className={styles.posts}>
+      {Array.from({ length: 2 }).map((_, index) => (
+        <SkeletonCard key={index} />
+      ))}
+    </div>
+  </div>
+);
+
 const CardList = async({page, cat}) => {
   const {posts , count} = await getData(page, cat)
 
@@ -25,18 +37,20 @@ const CardList = async({page, cat}) => {
 
 
   return (
-    <div className={styles.container} >
-      <h1 className={styles.title}>Recent Posts</h1>
-      <div className={styles.posts}>
-        {
-          posts && posts?.map((item)=>(
-            <Card item={item} key={item._id}/>
-          ))
-        }
-       
+    <Suspense fallback={<CardListSkeleton />}>
+      <div className={styles.container} >
+        <h1 className={styles.title}>Recent Posts</h1>
+        <div className={styles.posts}>
+          {
+            posts && posts?.map((item)=>(
+              <Card item={item} key={item._id}/>
+            ))
+          }
+         
+        </div>
+        <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev}/>
       </div>
-      <Pagination page={page} hasNext={hasNext} hasPrev={hasPrev}/>
-    </div>
+    </Suspense>
   )
 }
 

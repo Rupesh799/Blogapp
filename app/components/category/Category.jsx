@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Category.module.css";
 import Link from "next/link";
-import Image from "next/image";
+import SafeImage from "../ui/SafeImage";
 
 const getData = async () => {
   const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
@@ -28,12 +28,13 @@ const Category = async () => {
           href={`/blog?cat=${item.slug}`}
           className={`${styles.category} ${styles[item.slug]}`}
           >
-            <Image
+            <SafeImage
               src={item.img}
-              alt=""
+              alt={item.title}
               height={25}
               width={25}
               className={styles.image}
+              fallbackSrc="/images/logo.png"
               />
             {item.title}
           </Link>

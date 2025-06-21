@@ -1,7 +1,8 @@
-import Image from 'next/image'
+import SafeImage from '../ui/SafeImage'
 import Link from 'next/link'
 import React from 'react'
 import styles from './MenuPost.module.css'
+
 const MenuPost = ({withimage}) => {
   return (
     <div className={styles.items}>
@@ -22,7 +23,7 @@ const MenuPost = ({withimage}) => {
     <div className={styles.items}>
         <Link href="/" className={styles.item}>
          {withimage && ( <div className={styles.imgContainer}>
-            <Image src="/images/tech.jpg" alt='' fill className={styles.image}/>
+            <SafeImage src="/images/tech.jpg" alt='Tech post' fill className={styles.image} fallbackSrc="/images/logo.png"/>
           </div>)}
           <div className={styles.textContainer}>
               <span className={`${styles.category} ${styles.tech}`}>

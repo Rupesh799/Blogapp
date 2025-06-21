@@ -1,19 +1,35 @@
 import React from "react";
 import styles from "./card.module.css";
-import Image from "next/image";
 import Link from "next/link";
 import { RiArrowRightFill } from "react-icons/ri";
+import SafeImage from "../ui/SafeImage";
+
 const Card = ({ key, item }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
   return (
     <div className={styles.container} key={key}>
       <div className={styles.imgContainer}>
-        <Image src={item.img} alt="" fill className={styles.image} />
+        <SafeImage 
+          src={item.img} 
+          alt={item.title} 
+          fill 
+          className={styles.image}
+          fallbackSrc="/images/logo.png"
+        />
       </div>
 
       <div className={styles.textContainer}>
         <div className={styles.cardHeader}>
           <span className={styles.date}>
-            {item.createdAt.substring(0, 10)} -{" "}
+            {formatDate(item.createdAt)} -{" "}
           </span>
           <span className={styles.category}>{item.catSlug}</span>
         </div>
