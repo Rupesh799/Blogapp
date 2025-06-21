@@ -34,17 +34,20 @@
 .category.style{
     background-color: rgb(103, 156, 138);
 }
-.category.tech{
+.category.fashion{
     background-color: rgb(85, 197, 231);
 }
-.category.music{
+.category.food{
     background-color: rgb(211, 155, 227);
 }
 .category.culture{
     background-color: rgb(148, 97, 97);
 }
-.category.sports{
+.category.travel{
     background-color: rgb(149, 142, 133);
+}
+.category.coding{
+    background-color: rgb(255, 170, 0);
 }
 
 @media screen and (max-width:1280px){

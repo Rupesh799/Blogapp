@@ -26,7 +26,7 @@ const Comments = ({postSlug}) => {
     const router = useRouter()
     console.log(status);
     //? mutate is used for revalidating the data
-    const {data,mutate, isLoading} = useSWR(`http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    const {data,mutate, isLoading} = useSWR(`/api/comments?postSlug=${postSlug}`,
         fetcher
     );
 
@@ -62,22 +62,15 @@ const Comments = ({postSlug}) => {
          <div className={styles.contents}>
              <div className={styles.user}>
                  <Image src={item.user.image} alt='user' width={50} height={50} className={styles.image}/>
-
-                 <div className={styles.info}>
-                     <span className={styles.name}>{item.user.name}</span>
-                     <span className={styles.date}>{item.createdAt}</span>
+                 <div className={styles.userInfo}>
+                     <span className={styles.username}>{item.user.name}</span>
+                     <span className={styles.date}>{item.createdAt.substring(0,10)}</span>
                  </div>
              </div>
-
-             <div className={styles.description}>
-                {item.desc}
-             </div>
+             <p className={styles.comment}>{item.desc}</p>
          </div>
- </div>
+         </div>
        ))}
-       
-       
-        
     </div>
   )
 }

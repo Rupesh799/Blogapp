@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
+  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/categories`, {
     cache: "no-store",
   });
 
@@ -17,14 +18,15 @@ const getData = async () => {
 const Category = async () => {
   const categoryData = await getData();
   return (
+    <>
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
         {categoryData && categoryData?.map((item) => (
           <Link
           key={item._id}
-            href={`/blog?cat=${categoryData.slug}`}
-            className={`${styles.category} ${styles[item.slug]}`}
+          href={`/blog?cat=${item.slug}`}
+          className={`${styles.category} ${styles[item.slug]}`}
           >
             <Image
               src={item.img}
@@ -32,12 +34,13 @@ const Category = async () => {
               height={25}
               width={25}
               className={styles.image}
-            />
+              />
             {item.title}
           </Link>
         ))}
       </div>
     </div>
+        </>
   );
 };
 
