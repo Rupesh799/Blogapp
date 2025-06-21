@@ -13,6 +13,7 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import SafeImage from "../components/ui/SafeImage";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -29,38 +30,55 @@ const WriteBlog = () => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
 
+  const ensureFirebaseAuth = async () => {
+    const auth = getAuth(app);
+    if (!auth.currentUser) {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        alert("Firebase authentication failed. Please try again.");
+        throw error;
+      }
+    }
+  };
+
   useEffect(() => {
-    const upload = () => {
+    const upload = async () => {
       if (!file) return;
-
       setIsUploading(true);
-      const storage = getStorage(app);
-      const name = new Date().getTime() + file.name;
-      const storageRef = ref(storage, name);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setUploadProgress(progress);
-          console.log("Upload is " + progress + "% done");
-        },
-        (error) => {
-          console.error("Upload failed:", error);
-          setIsUploading(false);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setMedia(downloadURL);
+      try {
+        await ensureFirebaseAuth();
+        const auth = getAuth(app);
+        console.log("Firebase Auth user at upload:", auth.currentUser);
+        const storage = getStorage(app);
+        const name = new Date().getTime() + file.name;
+        const storageRef = ref(storage, `blog-images/${name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+            console.log("Upload is " + progress + "% done");
+          },
+          (error) => {
+            console.error("Upload failed:", error);
             setIsUploading(false);
-            setUploadProgress(0);
-          });
-        }
-      );
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setMedia(downloadURL);
+              setIsUploading(false);
+              setUploadProgress(0);
+            });
+          }
+        );
+      } catch (error) {
+        setIsUploading(false);
+      }
     };
-
     if (file) {
       upload();
     }

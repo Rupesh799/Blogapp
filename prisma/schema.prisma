@@ -79,6 +79,7 @@ model Category {
 
 model Post {
   id        String   @id @default(cuid()) @map("_id")
+  userEmail String?
   createdAt DateTime @default(now())
   slug      String   @unique
   title     String
