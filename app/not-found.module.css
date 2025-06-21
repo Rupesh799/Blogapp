@@ -1,0 +1,238 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--textColor);
+    padding: 2rem;
+}
+
+.content {
+    max-width: 600px;
+    text-align: center;
+    background: var(--bgSoft);
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--softBg);
+}
+
+.errorCode {
+    font-size: 8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--textColor);
+}
+
+.description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--textColor);
+    margin-bottom: 3rem;
+    opacity: 0.8;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.primaryButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.primaryButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.secondaryButton {
+    background: var(--bg);
+    color: var(--textColor);
+    border: 2px solid var(--softBg);
+}
+
+.secondaryButton:hover {
+    background: var(--softBg);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: var(--bg);
+    border-radius: 12px;
+    border: 1px solid var(--softBg);
+}
+
+.suggestionsTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--textColor);
+}
+
+.suggestionLinks {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.suggestionLink {
+    padding: 0.75rem 1.5rem;
+    background: var(--bgSoft);
+    color: var(--textColor);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid var(--softBg);
+}
+
+.suggestionLink:hover {
+    background: var(--softBg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.backButton {
+    margin-top: 2rem;
+}
+
+.backLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: var(--textColor);
+    border: 2px solid var(--softBg);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.backLink:hover {
+    background: var(--softBg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for error code */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.errorCode {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .content {
+        padding: 2rem 1.5rem;
+    }
+
+    .errorCode {
+        font-size: 6rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .description {
+        font-size: 1.1rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .primaryButton,
+    .secondaryButton {
+        width: 100%;
+        max-width: 250px;
+        justify-content: center;
+    }
+
+    .suggestionLinks {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .suggestionLink {
+        width: 100%;
+        max-width: 200px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .errorCode {
+        font-size: 4rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .content {
+        padding: 1.5rem 1rem;
+    }
+}
